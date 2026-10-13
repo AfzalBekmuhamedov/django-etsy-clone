@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block main %}
+
+<div class="container py-5">
+    {{product.category.title}}
+    <h3 class="fw-bold mb-3">{{ product.title }}</h3>
+    <img src="{{ product.image.url }}" class="detail-image" alt="{{ product.title }}">
+    <p class="mt-3 fs-5 text-secondary"> {{product.description }}</p>
+    <p class="fs-3 fw-bold text-orange mt-4"> ${{product.price }}</p>
+</div>
+   {% if request.user.is_authenticated %}
+   <form action="{% url 'comment' product.pk %}" method="post" class="my-5 col-8 mx-auto">
+       {% csrf_token %}
+       <h4>Write Comment</h4>
+       {{comment_form.as_p}}
+       <button type="submit" class="btn btn-etsy">Send</button>
+   </form>
+        {% endif %}
+      <div>
+        {% for comment in comments %}
+        <div class="card my-5 col-8 mx-auto">
+        <div class="card-header">
+         {{comment.user.username}}
+  </div>
+  <div class="card-body">
+    <figure>
+      <blockquote class="blockquote">
+        <p>{{comment.title}}</p>
+      </blockquote>
+      <figcaption class="blockquote-footer">
+        <cite title="Source Title">{{comment.created_at}}</cite>
+      </figcaption>
+    </figure>
+  </div>
+</div>
+        {% endfor %}
+    </div>
+
+<style>
+.detail-image {
+    width: 400px;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+</style>
+{% endblock main %}
