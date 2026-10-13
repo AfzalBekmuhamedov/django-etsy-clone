@@ -46,9 +46,7 @@ Technologies
 - Python
 - Django
 - HTML
-- CSS
 - Bootstrap
-- JavaScript
 - Database
 
 Project Highlights
